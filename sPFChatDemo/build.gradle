@@ -1,0 +1,33 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.0 rc2"
+
+    defaultConfig {
+        applicationId "it.polimi.spf.demo.chat"
+        minSdkVersion 17
+        targetSdkVersion 22
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    provided 'org.projectlombok:lombok:1.16.4'
+
+    compile 'it.polimi.spf:spflib:1.+@aar'
+    compile 'it.polimi.spf:spfshared:1.+@aar'
+
+    compile 'com.android.support:support-v13:22.2.0'
+}
