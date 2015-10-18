@@ -1,6 +1,7 @@
 /* 
  * Copyright 2014 Jacopo Aliprandi, Dario Archetti
- * 
+ * Copyright 2015 Stefano Cappa
+ *
  * This file is part of SPF.
  * 
  * SPF is free software: you can redistribute it and/or modify it under the

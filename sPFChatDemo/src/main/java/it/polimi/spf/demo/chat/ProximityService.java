@@ -1,6 +1,7 @@
 /* 
  * Copyright 2014 Jacopo Aliprandi, Dario Archetti
- * 
+ * Copyright 2015 Stefano Cappa
+ *
  * This file is part of SPF.
  * 
  * SPF is free software: you can redistribute it and/or modify it under the
@@ -19,8 +20,8 @@
  */
 package it.polimi.spf.demo.chat;
 
-import it.polimi.spf.lib.services.ServiceInterface;
 import it.polimi.spf.lib.services.ActivityConsumer;
+import it.polimi.spf.lib.services.ServiceInterface;
 import it.polimi.spf.shared.model.SPFActivity;
 
 /**
@@ -35,9 +36,9 @@ import it.polimi.spf.shared.model.SPFActivity;
 )
 public interface ProximityService {
 
-    public static final String POKE_VERB = "nex2:poke";
-    public static final String MESSAGE_VERB = "nex2:message";
-    public static final String MESSAGE_TEXT = "nex2:text";
+    String POKE_VERB = "nex2:poke";
+    String MESSAGE_VERB = "nex2:message";
+    String MESSAGE_TEXT = "nex2:text";
 
     @ActivityConsumer(verb = POKE_VERB)
     void onPokeReceived(SPFActivity poke);

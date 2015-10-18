@@ -1,6 +1,7 @@
 /* 
  * Copyright 2014 Jacopo Aliprandi, Dario Archetti
- * 
+ * Copyright 2015 Stefano Cappa
+ *
  * This file is part of SPF.
  * 
  * SPF is free software: you can redistribute it and/or modify it under the
@@ -21,24 +22,24 @@ package it.polimi.spf.demo.chat;
 
 import android.app.Application;
 
-public class ChatDemoApp extends Application{
+public class ChatDemoApp extends Application {
 
-	private static ChatDemoApp instance;
-	
-	public static ChatDemoApp get(){
-		return instance;
-	}
-	
-	private ChatStorage mStorage;
-	
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		instance = this;
-		mStorage = new ChatStorage.ChatStorageImpl(this);
-	}
-	
-	public ChatStorage getChatStorage(){
-		return mStorage;
-	}
+    private static ChatDemoApp instance;
+
+    public static ChatDemoApp get() {
+        return instance;
+    }
+
+    private ChatStorage mStorage;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        instance = this;
+        mStorage = new ChatStorage.ChatStorageImpl(this);
+    }
+
+    public ChatStorage getChatStorage() {
+        return mStorage;
+    }
 }

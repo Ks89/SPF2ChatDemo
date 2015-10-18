@@ -1,6 +1,7 @@
 /* 
  * Copyright 2014 Jacopo Aliprandi, Dario Archetti
- * 
+ * Copyright 2015 Stefano Cappa
+ *
  * This file is part of SPF.
  * 
  * SPF is free software: you can redistribute it and/or modify it under the
@@ -19,16 +20,16 @@
  */
 package it.polimi.spf.demo.chat;
 
-import android.app.Activity;
-import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Loader;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -58,7 +59,8 @@ import it.polimi.spf.shared.model.SPFError;
 /**
  * @author darioarchetti
  */
-public class ConversationActivity extends Activity implements View.OnClickListener, LoaderManager.LoaderCallbacks<List<Message>>{
+public class ConversationActivity extends AppCompatActivity implements
+        View.OnClickListener, LoaderManager.LoaderCallbacks<List<Message>> {
 
     public static final String EXTRA_CONVERSATION_ID = "conversationId";
     private static final String TAG = "ConversationActivity";
@@ -77,7 +79,7 @@ public class ConversationActivity extends Activity implements View.OnClickListen
         setContentView(R.layout.activity_conversation);
 
         Bundle source = savedInstanceState != null ? savedInstanceState : getIntent().getExtras();
-        if(!source.containsKey(EXTRA_CONVERSATION_ID)){
+        if (!source.containsKey(EXTRA_CONVERSATION_ID)) {
             throw new IllegalStateException("No conversation id found");
         }
 
@@ -103,13 +105,13 @@ public class ConversationActivity extends Activity implements View.OnClickListen
         super.onResume();
         SPF.connect(this, mConnectionListener);
         ProximityServiceImpl.setEventListener(mProximityEventListener);
-        getLoaderManager().initLoader(MESSAGE_LOADER_ID, null, this).forceLoad();
+        getSupportLoaderManager().initLoader(MESSAGE_LOADER_ID, null, this).forceLoad();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(mSpf != null){
+        if (mSpf != null) {
             mSpf.disconnect();
         }
         ProximityServiceImpl.removeEventListener(mProximityEventListener);
@@ -128,12 +130,12 @@ public class ConversationActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         String text = mTextInput.getText().toString();
-        if(text.length() == 0){
+        if (text.length() == 0) {
             toast(R.string.message_empty);
             return;
         }
 
-        if(mSpf == null){
+        if (mSpf == null) {
             Log.e(TAG, "Not connected to SPF when send was tapped");
             return;
         }
@@ -142,13 +144,13 @@ public class ConversationActivity extends Activity implements View.OnClickListen
         message.put(ProximityService.MESSAGE_TEXT, text);
 
         SPFPerson p = findPerson(mConversation.getContactIdentifier());
-        if(p == null){
+        if (p == null) {
             toast(R.string.message_person_lost);
             setInputEnabled(false);
             return;
         }
 
-        if(!p.sendActivity(mSpf, message)) {
+        if (!p.sendActivity(mSpf, message)) {
             toast(R.string.message_send_error);
             return;
         }
@@ -202,12 +204,12 @@ public class ConversationActivity extends Activity implements View.OnClickListen
 
         @Override
         public void onMessageReceived(final SPFActivity message) {
-            new Handler(Looper.getMainLooper()).post(new Runnable(){
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
 
                 @Override
                 public void run() {
-                    if(mConversation.getContactIdentifier().equals(message.get(SPFActivity.SENDER_IDENTIFIER))){
-                        getLoaderManager().initLoader(MESSAGE_LOADER_ID, null, ConversationActivity.this).forceLoad();
+                    if (mConversation.getContactIdentifier().equals(message.get(SPFActivity.SENDER_IDENTIFIER))) {
+                        getSupportLoaderManager().initLoader(MESSAGE_LOADER_ID, null, ConversationActivity.this).forceLoad();
                     }
                 }
             });
@@ -220,7 +222,7 @@ public class ConversationActivity extends Activity implements View.OnClickListen
 
     @Override
     public Loader<List<Message>> onCreateLoader(int id, Bundle args) {
-        switch (id){
+        switch (id) {
             case MESSAGE_LOADER_ID:
                 return new AsyncTaskLoader<List<Message>>(this) {
                     @Override
@@ -237,7 +239,7 @@ public class ConversationActivity extends Activity implements View.OnClickListen
     @Override
     public void onLoadFinished(Loader<List<Message>> loader, List<Message> data) {
         mAdapter.clear();
-        if(data != null){
+        if (data != null) {
             mAdapter.addAll(data);
         }
     }

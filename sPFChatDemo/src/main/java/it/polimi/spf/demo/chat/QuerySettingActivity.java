@@ -1,6 +1,7 @@
 /* 
  * Copyright 2014 Jacopo Aliprandi, Dario Archetti
- * 
+ * Copyright 2015 Stefano Cappa
+ *
  * This file is part of SPF.
  * 
  * SPF is free software: you can redistribute it and/or modify it under the
@@ -20,13 +21,13 @@
 package it.polimi.spf.demo.chat;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +43,7 @@ import it.polimi.spf.shared.model.ProfileField;
 import it.polimi.spf.shared.model.SPFQuery;
 
 
-public class QuerySettingActivity extends Activity {
+public class QuerySettingActivity extends AppCompatActivity {
 
     private SPFQuery.Builder mQueryBuilder;
     private ArrayAdapter<String> mAdapter;
@@ -77,7 +78,7 @@ public class QuerySettingActivity extends Activity {
                 finish(false);
                 return true;
             case R.id.query_action_add_parameter:
-                mDialog.show(getFragmentManager(), "QueryDialog");
+                mDialog.show(getSupportFragmentManager(), "QueryDialog");
                 return true;
             case R.id.query_action_save:
                 finish(true);
@@ -91,13 +92,13 @@ public class QuerySettingActivity extends Activity {
         @Override
         public void onTagParameterAdded(String tag) {
             mQueryBuilder.setTag(tag);
-            mAdapter.add("[TAG] "+ tag);
+            mAdapter.add("[TAG] " + tag);
         }
 
         @Override
         public void onPropertyParameterAdded(ProfileField<String> field, String fieldValue) {
             mQueryBuilder.setProfileField(field, fieldValue);
-            mAdapter.add("[FIELD] "+ field.getIdentifier() + " = " + fieldValue);
+            mAdapter.add("[FIELD] " + field.getIdentifier() + " = " + fieldValue);
         }
     };
 
@@ -130,7 +131,7 @@ public class QuerySettingActivity extends Activity {
         private Spinner mFieldKeyView;
         private RadioGroup mQueryTypeRadioGroup;
 
-        public void setListener(OnParameterAddedListener listener){
+        public void setListener(OnParameterAddedListener listener) {
             mListener = listener;
         }
 
@@ -160,7 +161,7 @@ public class QuerySettingActivity extends Activity {
             }
 
             return builder.setView(view)
-            		.setTitle(R.string.query_popup_title)
+                    .setTitle(R.string.query_popup_title)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
                         @Override
@@ -177,7 +178,7 @@ public class QuerySettingActivity extends Activity {
         }
 
         @SuppressWarnings("unchecked")
-		private void handleSubmission() {
+        private void handleSubmission() {
             switch (mQueryTypeRadioGroup.getCheckedRadioButtonId()) {
                 case R.id.query_tag_radio: {
                     String tag = mTagView.getText().toString();

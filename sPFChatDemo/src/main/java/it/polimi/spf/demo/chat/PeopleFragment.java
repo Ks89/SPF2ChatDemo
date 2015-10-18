@@ -1,6 +1,7 @@
 /* 
  * Copyright 2014 Jacopo Aliprandi, Dario Archetti
- * 
+ * Copyright 2015 Stefano Cappa
+ *
  * This file is part of SPF.
  * 
  * SPF is free software: you can redistribute it and/or modify it under the
@@ -20,10 +21,10 @@
 package it.polimi.spf.demo.chat;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -62,6 +63,13 @@ public class PeopleFragment extends Fragment {
     private TextView mMessageView;
     private SPF mSPF;
     private SPFQuery mQuery;
+
+    public PeopleFragment newInstance() {
+        return new PeopleFragment();
+    }
+
+    public PeopleFragment() {
+    }
 
     @Nullable
     @Override
@@ -125,9 +133,9 @@ public class PeopleFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == QUERY_SET_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == QUERY_SET_CODE && resultCode == Activity.RESULT_OK) {
             SPFQuery q = data.getParcelableExtra(QuerySettingActivity.EXTRA_QUERY);
-            if(q == null){
+            if (q == null) {
                 Log.e(TAG, "Query setting returned null result");
             } else {
                 mQuery = q;
@@ -201,7 +209,7 @@ public class PeopleFragment extends Fragment {
         }
     };
 
-    private class PersonAdapter extends ArrayAdapter<SPFPerson> implements View.OnClickListener{
+    private class PersonAdapter extends ArrayAdapter<SPFPerson> implements View.OnClickListener {
 
         private PersonAdapter() {
             super(getActivity(), android.R.layout.simple_list_item_1);
@@ -232,7 +240,7 @@ public class PeopleFragment extends Fragment {
         @Override
         public void onClick(View v) {
             SPFPerson person = (SPFPerson) v.getTag();
-            switch(v.getId()){
+            switch (v.getId()) {
                 case R.id.people_action_profile:
                     showUserProfile(person);
                     break;
@@ -246,17 +254,17 @@ public class PeopleFragment extends Fragment {
         }
     }
 
-    private void showUserProfile(SPFPerson person){
+    private void showUserProfile(SPFPerson person) {
         Intent i = new Intent(getActivity(), UserProfileActivity.class);
         i.putExtra(UserProfileActivity.EXTRA_PERSON_IDENTIFIER, person.getIdentifier());
         startActivity(i);
     }
 
-    private void showConversationWith(SPFPerson person){
+    private void showConversationWith(SPFPerson person) {
         ChatStorage storage = ChatDemoApp.get().getChatStorage();
         long id;
         Conversation c = storage.findConversationWith(person.getIdentifier());
-        if(c != null){
+        if (c != null) {
             id = c.getId();
         } else {
             c = new Conversation();
@@ -270,14 +278,14 @@ public class PeopleFragment extends Fragment {
         startActivity(i);
     }
 
-    private void sendPoke(SPFPerson person){
-        if(mSPF == null){
+    private void sendPoke(SPFPerson person) {
+        if (mSPF == null) {
             toast(R.string.people_connection_error);
             return;
         }
 
         SPFActivity poke = new SPFActivity(ProximityService.POKE_VERB);
-        if(!person.sendActivity(mSPF, poke)){
+        if (!person.sendActivity(mSPF, poke)) {
             Toast.makeText(getActivity(), "Error sending poke", Toast.LENGTH_LONG).show();
         }
     }
@@ -286,9 +294,9 @@ public class PeopleFragment extends Fragment {
         public TextView personName;
         public ImageButton profileBtn, pokeBtn, messageBtn;
 
-        public static ViewHolder from (View view){
+        public static ViewHolder from(View view) {
             Object t = view.getTag();
-            if(t != null && (t instanceof ViewHolder)){
+            if (t != null && (t instanceof ViewHolder)) {
                 return (ViewHolder) t;
             }
 

@@ -1,6 +1,7 @@
 /* 
  * Copyright 2014 Jacopo Aliprandi, Dario Archetti
- * 
+ * Copyright 2015 Stefano Cappa
+ *
  * This file is part of SPF.
  * 
  * SPF is free software: you can redistribute it and/or modify it under the
@@ -19,14 +20,13 @@
  */
 package it.polimi.spf.demo.chat;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +45,18 @@ import it.polimi.spf.demo.chat.model.Conversation;
  * @author darioarchetti
  */
 public class ConversationListFragment extends Fragment
-    implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<List<Conversation>> {
+        implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<List<Conversation>> {
 
     private static final int CONVERSATION_LOADER = 0;
 
     private ConversationListAdapter mAdapter;
+
+    public ConversationListFragment newInstance() {
+        return new ConversationListFragment();
+    }
+
+    public ConversationListFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,9 +76,9 @@ public class ConversationListFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).registerMessageObserver(mMessageObserver);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainActivity) context).registerMessageObserver(mMessageObserver);
     }
 
     @Override
@@ -98,7 +105,7 @@ public class ConversationListFragment extends Fragment
 
     @Override
     public Loader<List<Conversation>> onCreateLoader(int id, Bundle args) {
-        switch(id){
+        switch (id) {
             case CONVERSATION_LOADER:
                 return new AsyncTaskLoader<List<Conversation>>(getActivity()) {
                     @Override
@@ -113,10 +120,10 @@ public class ConversationListFragment extends Fragment
 
     @Override
     public void onLoadFinished(Loader<List<Conversation>> loader, List<Conversation> data) {
-        switch(loader.getId()){
+        switch (loader.getId()) {
             case CONVERSATION_LOADER:
                 mAdapter.clear();
-                if(data != null){
+                if (data != null) {
                     mAdapter.addAll(data);
                 }
                 break;

@@ -1,6 +1,7 @@
 /* 
  * Copyright 2014 Jacopo Aliprandi, Dario Archetti
- * 
+ * Copyright 2015 Stefano Cappa
+ *
  * This file is part of SPF.
  * 
  * SPF is free software: you can redistribute it and/or modify it under the
@@ -19,16 +20,16 @@
  */
 package it.polimi.spf.demo.chat;
 
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,10 +50,10 @@ import it.polimi.spf.shared.model.SPFError;
  * Fragment to show the detail retrieved from a profile, either local or remote
  */
 public class ProfileFragment extends Fragment
-    implements LoaderManager.LoaderCallbacks<ProfileFieldContainer>, View.OnClickListener {
+        implements LoaderManager.LoaderCallbacks<ProfileFieldContainer>, View.OnClickListener {
 
     private static final String SELF_IDENTIFIER = "self";
-    private static final String EXTRA_IDENTIFIER  = "personIdentifier";
+    private static final String EXTRA_IDENTIFIER = "personIdentifier";
     private static final String TAG = "ProfileFragment";
     private static final int PROFILE_LOADER_ID = 0;
 
@@ -196,11 +197,11 @@ public class ProfileFragment extends Fragment
             }
         });
 
-        if(mSpf != null){
+        if (mSpf != null) {
             //mSpf.disconnect();
         }
 
-        if(mLocalProfile != null){
+        if (mLocalProfile != null) {
             //mLocalProfile.disconnect();
         }
     }
@@ -211,7 +212,7 @@ public class ProfileFragment extends Fragment
     }
 
     private void onProfileDataAvailable(ProfileFieldContainer data) {
-        if(data == null){
+        if (data == null) {
             Toast.makeText(getActivity(), R.string.people_not_available, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -222,12 +223,12 @@ public class ProfileFragment extends Fragment
         ((TextView) getView().findViewById(R.id.profile_detail_name)).setText(name != null ? name : "-");
         ((TextView) getView().findViewById(R.id.profile_detil_identifier)).setText(identifier);
 
-        if(!SELF_IDENTIFIER.equals(mProfileIdentifier)){
+        if (!SELF_IDENTIFIER.equals(mProfileIdentifier)) {
             getActivity().setTitle(name != null ? name : identifier);
         }
 
         Bitmap pic = data.getFieldValue(ProfileField.PHOTO);
-        if(pic != null){
+        if (pic != null) {
             ((ImageView) getView().findViewById(R.id.profile_detail_pic)).setImageBitmap(pic);
         }
 
@@ -236,11 +237,11 @@ public class ProfileFragment extends Fragment
 
     @Override
     public void onClick(View v) {
-       Intent i = new Intent("it.polimi.spf.app.ShowProfile");
-        if(!SELF_IDENTIFIER.equals(mProfileIdentifier)){
+        Intent i = new Intent("it.polimi.spf.app.ShowProfile");
+        if (!SELF_IDENTIFIER.equals(mProfileIdentifier)) {
             i.putExtra(EXTRA_IDENTIFIER, mProfileIdentifier);
         }
 
-       startActivity(i);
+        startActivity(i);
     }
 }
