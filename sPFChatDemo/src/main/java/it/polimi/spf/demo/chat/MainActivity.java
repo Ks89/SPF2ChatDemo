@@ -61,7 +61,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		SPFPermissionManager.get().requirePermission(Permission.READ_LOCAL_PROFILE, Permission.READ_REMOTE_PROFILES, Permission.SEARCH_SERVICE, Permission.REGISTER_SERVICES, Permission.ACTIVITY_SERVICE);
+		SPFPermissionManager.get().requirePermission(Permission.READ_LOCAL_PROFILE,
+				Permission.READ_REMOTE_PROFILES, Permission.SEARCH_SERVICE, Permission.REGISTER_SERVICES,
+				Permission.ACTIVITY_SERVICE);
 
 		ViewPager pager = (ViewPager) findViewById(R.id.main_pager);
 		pager.setAdapter(new MainPagerAdapter(this, getFragmentManager()));
