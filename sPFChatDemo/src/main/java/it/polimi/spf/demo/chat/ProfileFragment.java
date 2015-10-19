@@ -56,29 +56,6 @@ public class ProfileFragment extends Fragment
     private static final String EXTRA_IDENTIFIER = "personIdentifier";
     private static final String TAG = "ProfileFragment";
     private static final int PROFILE_LOADER_ID = 0;
-    private static final String EXTRA_VIEW_MODE = "viewMode";
-
-    /**
-     * Possible visualization modes of fields values.
-     *
-     * @author darioarchetti
-     */
-    public enum Mode {
-        /**
-         * Shows the profile of the local user
-         */
-        SELF,
-
-        /**
-         * Shows the profile of a remote user
-         */
-        REMOTE,
-
-        /**
-         * Shows the profile of the local user and allows modifications
-         */
-        EDIT;
-    }
 
     private final static ProfileField<?>[] FIELDS = {
             ProfileField.DISPLAY_NAME,
@@ -260,15 +237,16 @@ public class ProfileFragment extends Fragment
 
 
     //click listener on "SHOW FULL PROFILE"
-    //this will open the ProfileViewActivity in SPFApp.
+    //this will open Activities in SPFApp.
+    //To understand which Activity will be opened,
+    //read the AndroidManifest and check the intent's names.
     @Override
     public void onClick(View v) {
         Intent i = new Intent("it.polimi.spf.app.ShowProfile");
+        Log.d(TAG, "mProfileIdentifier is: " + mProfileIdentifier);
         if (!SELF_IDENTIFIER.equals(mProfileIdentifier)) {
-            i.putExtra(EXTRA_VIEW_MODE, Mode.REMOTE);
             i.putExtra(EXTRA_IDENTIFIER, mProfileIdentifier);
         }
-
         startActivity(i);
     }
 }
