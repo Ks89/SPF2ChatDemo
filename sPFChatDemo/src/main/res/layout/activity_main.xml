@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/tab_background"
+        android:elevation="5dp"
         android:maxHeight="5dp"
         android:minHeight="?attr/actionBarSize"
         android:textColor="@color/tab_foreground"

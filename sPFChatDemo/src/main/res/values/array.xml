@@ -2,7 +2,7 @@
 <resources>
     <string-array name="main_section_titles">
         <item>Around me</item>
-        <item>Conversations</item>
+        <item>Chats</item>
         <item>My Profile</item>
     </string-array>
 </resources>
