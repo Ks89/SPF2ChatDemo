@@ -21,31 +21,34 @@
 package it.polimi.spf.demo.chat;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import it.polimi.spf.lib.SPFPermissionManager;
 import it.polimi.spf.lib.services.SPFServiceRegistry;
 import it.polimi.spf.shared.model.Permission;
 import it.polimi.spf.shared.model.SPFActivity;
 import it.polimi.spf.shared.model.SPFError;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ToolbarActivity {
 
     private static final String TAG = "MainActivity";
     private final Handler uiHandler = new Handler(Looper.getMainLooper());
@@ -57,17 +60,61 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @Bind(R.id.tab_layout)
+    TabLayout tabLayout;
+    @Bind(R.id.view_pager)
+    ViewPager mViewPager;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
+
+        super.setupToolbar(toolbar, R.string.app_name, R.color.toolbar_text_color);
+
         SPFPermissionManager.get().requirePermission(Permission.READ_LOCAL_PROFILE,
                 Permission.READ_REMOTE_PROFILES, Permission.SEARCH_SERVICE, Permission.REGISTER_SERVICES,
                 Permission.ACTIVITY_SERVICE);
 
-        ViewPager pager = (ViewPager) findViewById(R.id.main_pager);
-        pager.setAdapter(new MainPagerAdapter(this, getSupportFragmentManager()));
+
+        String[] mPageTitles = this.getResources().getStringArray(R.array.main_section_titles);
+
+        tabLayout.removeAllTabs();
+        tabLayout.addTab(tabLayout.newTab().setText(mPageTitles[0].toUpperCase(Locale.getDefault())));
+        tabLayout.addTab(tabLayout.newTab().setText(mPageTitles[1].toUpperCase(Locale.getDefault())));
+        tabLayout.addTab(tabLayout.newTab().setText(mPageTitles[2].toUpperCase(Locale.getDefault())));
+
+        MainPagerAdapter mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            }
+        });
 
         Log.d(TAG, "ServiceComponentName: \"" + new ComponentName(this, ProximityServiceImpl.class).flattenToString() + "\"");
 
@@ -157,14 +204,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static class MainPagerAdapter extends FragmentPagerAdapter {
+        private int mNumOfTabs;
 
-        private final static int PAGE_COUNT = 3;
-
-        private final String[] mPageTitles;
-
-        private MainPagerAdapter(Context c, FragmentManager fm) {
+        private MainPagerAdapter(FragmentManager fm, int mNumOfTabs) {
             super(fm);
-            this.mPageTitles = c.getResources().getStringArray(R.array.main_section_titles);
+            this.mNumOfTabs = mNumOfTabs;
         }
 
         @Override
@@ -178,18 +222,13 @@ public class MainActivity extends AppCompatActivity {
                     return ProfileFragment.forSelfProfile();
 
                 default:
-                    throw new IndexOutOfBoundsException("Requested page " + i + ", total " + PAGE_COUNT);
+                    throw new IndexOutOfBoundsException("Requested page " + i + ", total " + mNumOfTabs);
             }
         }
 
         @Override
-        public CharSequence getPageTitle(int position) {
-            return mPageTitles[position];
-        }
-
-        @Override
         public int getCount() {
-            return PAGE_COUNT;
+            return mNumOfTabs;
         }
     }
 }

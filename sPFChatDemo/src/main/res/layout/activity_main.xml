@@ -3,23 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/tab_background"
+        android:maxHeight="5dp"
+        android:minHeight="?attr/actionBarSize"
+        android:textColor="@color/tab_foreground"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/main_pager"
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-
-        <android.support.v4.view.PagerTabStrip
-            android:id="@+id/pager_tab_strip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:background="@color/highlight"
-            android:paddingBottom="7dp"
-            android:paddingTop="7dp"
-            android:textColor="#fff" />
-    </android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"
+        android:background="@android:color/white" />
 
 </LinearLayout>

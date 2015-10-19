@@ -22,16 +22,27 @@ package it.polimi.spf.demo.chat;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class UserProfileActivity extends AppCompatActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class UserProfileActivity extends ToolbarActivity {
 
     public static final String EXTRA_PERSON_IDENTIFIER = "personIdentifier";
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        ButterKnife.bind(this);
+
+        super.setupToolbar(toolbar, R.string.app_name, R.color.toolbar_text_color);
 
         if (savedInstanceState == null) {
             String personIdentifier = getIntent().getStringExtra(EXTRA_PERSON_IDENTIFIER);

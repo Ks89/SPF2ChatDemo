@@ -30,6 +30,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -48,6 +49,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import it.polimi.spf.demo.chat.model.Conversation;
 import it.polimi.spf.demo.chat.model.Message;
 import it.polimi.spf.lib.SPF;
@@ -59,7 +62,7 @@ import it.polimi.spf.shared.model.SPFError;
 /**
  * @author darioarchetti
  */
-public class ConversationActivity extends AppCompatActivity implements
+public class ConversationActivity extends ToolbarActivity implements
         View.OnClickListener, LoaderManager.LoaderCallbacks<List<Message>> {
 
     public static final String EXTRA_CONVERSATION_ID = "conversationId";
@@ -73,10 +76,17 @@ public class ConversationActivity extends AppCompatActivity implements
     private ImageButton mSendButton;
     private ChatStorage mStorage = ChatDemoApp.get().getChatStorage();
 
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
+
+        ButterKnife.bind(this);
+
+        super.setupToolbar(toolbar, R.string.app_name, R.color.toolbar_text_color);
 
         Bundle source = savedInstanceState != null ? savedInstanceState : getIntent().getExtras();
         if (!source.containsKey(EXTRA_CONVERSATION_ID)) {

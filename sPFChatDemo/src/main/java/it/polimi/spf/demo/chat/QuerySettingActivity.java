@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,20 +40,29 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import it.polimi.spf.shared.model.ProfileField;
 import it.polimi.spf.shared.model.SPFQuery;
 
 
-public class QuerySettingActivity extends AppCompatActivity {
+public class QuerySettingActivity extends ToolbarActivity {
 
     private SPFQuery.Builder mQueryBuilder;
     private ArrayAdapter<String> mAdapter;
     private QueryCreationDialog mDialog;
 
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_setting);
+
+        ButterKnife.bind(this);
+
+        super.setupToolbarWithHomeIcon(toolbar, R.string.app_name, R.color.toolbar_text_color);
 
         mQueryBuilder = new SPFQuery.Builder();
 
@@ -119,9 +129,9 @@ public class QuerySettingActivity extends AppCompatActivity {
     public static class QueryCreationDialog extends DialogFragment implements RadioGroup.OnCheckedChangeListener {
 
         public interface OnParameterAddedListener {
-            public void onTagParameterAdded(String tag);
+            void onTagParameterAdded(String tag);
 
-            public void onPropertyParameterAdded(ProfileField<String> field, String value);
+            void onPropertyParameterAdded(ProfileField<String> field, String value);
         }
 
         private final static String EMPTY_FIELD = "The field %s cannot be empty";
