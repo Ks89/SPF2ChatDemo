@@ -45,7 +45,9 @@ public class UserProfileActivity extends AppCompatActivity {
                     .commit();
         }
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

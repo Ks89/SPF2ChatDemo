@@ -96,7 +96,9 @@ public class ConversationActivity extends AppCompatActivity implements
         mTextInput = (EditText) findViewById(R.id.message_input);
 
         setTitle(mConversation.getContactDisplayName());
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         setInputEnabled(false);
     }
 
