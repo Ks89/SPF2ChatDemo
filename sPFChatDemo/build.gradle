@@ -8,8 +8,8 @@ android {
         applicationId "it.polimi.spf.demo.chat"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 2
-        versionName "2.0"
+        versionCode 2 //remember to increase by 1 this value at every official release to be able to upgrade the app
+        versionName "2.0" //remember to update this value at every official release to be able to upgrade the app
 
     }
 
@@ -32,7 +32,7 @@ android {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "2.7"
+    gradleVersion = "2.8"
 }
 
 
