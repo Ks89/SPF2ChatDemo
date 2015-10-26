@@ -40,8 +40,8 @@ dependencies {
     provided 'org.projectlombok:lombok:1.16.6'
     compile 'com.google.code.gson:gson:2.4'
 
-    compile 'it.polimi.spf:spflib:2.0.0.0@aar'
-    compile 'it.polimi.spf:spfshared:2.0.0.0@aar'
+    compile 'it.polimi.spf:spflib:2.0.0.1@aar'
+    compile 'it.polimi.spf:spfshared:2.0.0.1@aar'
 
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:support-v4:23.1.0'
