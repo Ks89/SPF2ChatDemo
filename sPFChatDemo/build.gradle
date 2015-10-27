@@ -29,6 +29,13 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    //to include my remote repository where I deployed the dependencies
+    repositories {
+        maven {
+            url  "http://dl.bintray.com/ks89/maven"
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
