@@ -57,7 +57,14 @@ If you found something, create a Pull Request! XD
 
 ## Images
 
-//TODO add here
+<img align="center" src="https://raw.githubusercontent.com/deib-polimi/SPF2ChatDemo/master/repo_images/1.png" width="250"> <br /> <br />
+<img align="center" src="https://raw.githubusercontent.com/deib-polimi/SPF2ChatDemo/master/repo_images/2.png" width="250"> <br /> <br />
+<img align="center" src="https://raw.githubusercontent.com/deib-polimi/SPF2ChatDemo/master/repo_images/3.png" width="250"> <br /> <br />
+<img align="center" src="https://raw.githubusercontent.com/deib-polimi/SPF2ChatDemo/master/repo_images/4.png" width="250"> <br /> <br />
+<img align="center" src="https://raw.githubusercontent.com/deib-polimi/SPF2ChatDemo/master/repo_images/5.png" width="250"> <br /> <br />
+<img align="center" src="https://raw.githubusercontent.com/deib-polimi/SPF2ChatDemo/master/repo_images/6.png" width="250"> <br /> <br />
+<img align="center" src="https://raw.githubusercontent.com/deib-polimi/SPF2ChatDemo/master/repo_images/7.png" width="250"> <br /> <br />
+<img align="center" src="https://raw.githubusercontent.com/deib-polimi/SPF2ChatDemo/master/repo_images/8.png" width="250">
 
 
 ## License
