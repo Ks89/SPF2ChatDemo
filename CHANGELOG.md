@@ -1,3 +1,9 @@
+**2.0.1**
+
+1. Now I'm using libraries on JCenter
+
+
+
 **2.0.0**
 
 1. moved outside the main repository with the framework.

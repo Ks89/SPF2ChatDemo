@@ -27,6 +27,7 @@ because Gradle caches dependencies automatically into .gradle/caches/modules-2/f
 
 ## Releases
 
+- *10/30/2015* - **SPF2ChatDemo** 2.0.1 - [Download](https://github.com/deib-polimi/SPF2ChatDemo/releases/tag/v.2.0.1)
 - *10/27/2015* - **SPF2ChatDemo** 2.0.0 - [Download](https://github.com/deib-polimi/SPF2ChatDemo/releases/tag/v.2.0.0)
 - *10/20/2015* - **SPF2ChatDemo** Beta 1 - [Download](https://github.com/deib-polimi/SPF2ChatDemo/releases/tag/v.beta1)
 
@@ -35,6 +36,7 @@ because Gradle caches dependencies automatically into .gradle/caches/modules-2/f
 
 As you can see, to be able to compile a SPF2's app, you should simply 
 update your "dependencies" block inside the module's build.gradle.
+Dependencies are on [JCenter](http://jcenter.bintray.com/it/polimi/spf/) and [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Cit.polimi). 
 
 ```
 dependencies {

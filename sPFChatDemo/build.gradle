@@ -30,12 +30,12 @@ android {
         abortOnError false
     }
 
-    //to include my remote repository where I deployed the dependencies
-    repositories {
-        maven {
-            url  "http://dl.bintray.com/ks89/maven"
-        }
-    }
+    //to include my remote repository, before that the libs will be available on jcenter/maven central
+//    repositories {
+//        maven {
+//            url  "http://dl.bintray.com/ks89/maven"
+//        }
+//    }
 }
 
 task wrapper(type: Wrapper) {
